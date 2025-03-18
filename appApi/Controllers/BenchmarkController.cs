@@ -36,7 +36,7 @@ namespace appApi.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -51,7 +51,7 @@ namespace appApi.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }

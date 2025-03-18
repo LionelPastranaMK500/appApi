@@ -68,10 +68,10 @@ namespace appApi.Data
         {
             //instanciar la conexion a la base de datos
             var db = Conectar();
-            String query = "DELETE FROM Benchmark WHERE id = @id";
+            String query = "DELETE FROM Benchmark WHERE id = @ide";
             //ejecutar la consulta para eliminar un registro en la tabla Benchmark
             //retornar verdadero si se elimino el registro
-            int n = await db.ExecuteAsync(query, new { id });
+            int n = await db.ExecuteAsync(query, new { ide = id });
             db.Dispose();
             return n > 0;
         }
