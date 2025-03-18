@@ -37,7 +37,7 @@ namespace appApi.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -52,7 +52,7 @@ namespace appApi.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -63,8 +63,8 @@ namespace appApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarProcesador(int id)
         {
-            var resgistro = Ok(await _procesador.EliminarProcesador(id));
-            return Created("procesador eliminado...", resgistro);
+            var resultado = Ok(await _procesador.EliminarProcesador(id));
+            return Created("procesador eliminado", resultado);
         }
     }
 }

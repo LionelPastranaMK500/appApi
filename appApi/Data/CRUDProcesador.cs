@@ -45,22 +45,27 @@ namespace appApi.Data
         //metodo para crear un procesador
         public async Task<bool> AgregarProcesador(Procesador procesador)
         {
+            //instanciar la conexion a la base de datos
             var db = Conectar();
-            string query = "INSERT INTO procesadores VALUES (@nombre, @marca, @nucleos, @hilos, @frecuenciaBase, @frecuenciaTurbo, @tdp, @lanzamiento)";
-
+            //crear la consulta para insertar un registro en la tabla Procesador
+            string query = @"INSERT INTO procesadores 
+                        (nombre, marca, nucleos, hilos, frecuencia_base, frecuencia_turbo, tdp, lanzamiento) 
+                        VALUES (@nombr, @marc, @nucleo, @hilo, @frecuenciaBas, @frecuenciaTurb, @td, @lanzamient)";
+            //ejecutar la consulta para insertar un registro en la tabla Procesador    
             int n = await db.ExecuteAsync(query, new
             {
-                procesador.nombre,
-                procesador.marca,
-                procesador.nucleos,
-                procesador.hilos,
-                procesador.frecuenciaBase,
-                procesador.frecuenciaTurbo,
-                procesador.tdp,
-                procesador.lanzamiento
+                nombr = procesador.nombre,
+                marc = procesador.marca,
+                nucleo = procesador.nucleos,
+                hilo = procesador.hilos,
+                frecuenciaBas = procesador.frecuenciaBase,
+                frecuenciaTurb = procesador.frecuenciaTurbo,
+                td = procesador.tdp,
+                lanzamient = procesador.lanzamiento
             });
-
+            //cerrar la conexion a la base de datos
             db.Dispose();
+            //retornar verdadero si se inserto el registro
             return n > 0;
         }
         //metodo para actualizar un procesador
@@ -68,19 +73,21 @@ namespace appApi.Data
         {
             //instanciar la conexion a la base de datos
             var db = Conectar();
-            String query = "UPDATE procesadores SET nombre=@nombre, marca=@marca, nucleos=@nucleos, hilos=@hilos, frecuencia_base=@frecuenciaBase, frecuencia_turbo=@frecuenciaTurbo, tdp=@tdp, lanzamiento=@lanzamiento WHERE id=@id";
+            String query = "UPDATE procesadores SET nombre=@nombr, marca=@marc, nucleos=@nucleo, hilos=@hilo, frecuencia_base=@frecuenciaBas, frecuencia_turbo=@frecuenciaTurb, tdp=@td, lanzamiento=@lanzamient WHERE id=@ide";
             //ejecutar la consulta para actualizar un registro en la tabla Procesador
             //retornar verdadero si se actualizo el registro
-            int n = await db.ExecuteAsync(query, new { 
-                procesador.nombre, 
-                procesador.marca, 
-                procesador.nucleos, 
-                procesador.hilos, 
-                procesador.frecuenciaBase, 
-                procesador.frecuenciaTurbo, 
-                procesador.tdp, 
-                procesador.lanzamiento, 
-                procesador.id });
+            int n = await db.ExecuteAsync(query, new
+            {
+                nombr = procesador.nombre,
+                marc = procesador.marca,
+                nucleo = procesador.nucleos,
+                hilo = procesador.hilos,
+                frecuenciaBas = procesador.frecuenciaBase,
+                frecuenciaTurb = procesador.frecuenciaTurbo,
+                td = procesador.tdp,
+                lanzamient = procesador.lanzamiento,
+                ide = procesador.id
+            });
             db.Dispose();
             return n > 0;
         }
@@ -89,10 +96,11 @@ namespace appApi.Data
         {
             //instanciar la conexion a la base de datos
             var db = Conectar();
-            String query = "DELETE FROM Procesadores WHERE id = @id";
+            //crear la consulta para eliminar un registro en la tabla Procesador
+            string query = "DELETE FROM Procesadores WHERE id = @ide";
             //ejecutar la consulta para eliminar un registro en la tabla Procesador
-            //retornar verdadero si se elimino el registro
-            int n = await db.ExecuteAsync(query, new { id });
+            int n = await db.ExecuteAsync(query, new { ide = id });
+            //cerrar la conexion a la base de datos
             db.Dispose();
             return n > 0;
         }
